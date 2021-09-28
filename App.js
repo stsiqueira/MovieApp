@@ -1,13 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Movie from './src/components/layout/Movie'
+import Search from './src/components/layout/Search'
+import TV from './src/components/layout/TvShow'
+import Header from './src/components/layout/Header';
 
+
+const Tab = createMaterialTopTabNavigator();
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <StatusBar style="light"/>
+        <Header/>
+        <Tab.Navigator>
+            <Tab.Screen name="Movie" component={Movie} />
+            <Tab.Screen name="Search Results" component={Search} />
+            <Tab.Screen name="TV Shows" component={TV} />
+        </Tab.Navigator>
+      </NavigationContainer>
+
   );
 }
 
