@@ -1,50 +1,45 @@
-import React from 'react';
-import axios from 'axios'
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import React, { useState }from 'react';
+import { StyleSheet, Text, SafeAreaView, View, FlatList} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Article from '../subcomponents/Article';
+import getData from '../api/services/api';
+import SelectInput from '../subcomponents/SelectInput';
 
 export default function Movie() {
-  const getData = async data => {
-    console.log("===========")
-    const apiKey = '88ea48b6af174e7e71d3fb1c98bb76f0'
-    const url = `https://api.themoviedb.org/3/movie/${data}?api_key=${apiKey}&language=en-US&page=1`
-    //const url2 = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`
-    const response = await axios.get(url)
-    // console.log(response)
-    const list = response.data;
-    // console.log(list)
-
-    // console.log(list.results);
-    list.results.forEach(movie => {
-      console.log("********")
-      console.log(movie.original_title);
-      console.log(movie.popularity);
-      console.log(movie.release_date);
-      console.log(movie.overview);
-    });
-
-    return 
-  }
-
+  const [movies, setMovies] = useState([]);
   return (
     <SafeAreaView style={styles.container}>
+      {/* <SelectInput /> */}
         <View style={styles.searchContainer}>
           <RNPickerSelect
             style={customPickerStyles}
-            placeholder={{ label: 'Top rated', value: 'top_rated' }}
-            onValueChange={(value) => {
-              getData(value)
+            placeholder={{label: 'Choose an option', value: 'top_rated'}}
+            onValueChange={async (value) => {
+              const data = await getData("movie",value);
+              // console.log(data)
+              setMovies(data);
+              console.log("movies->", movies)
             }}
             items={[
+                { label: 'Top rated', value: 'top_rated' },
                 { label: 'Upcoming', value: 'upcoming' },
                 { label: 'Popular', value: 'popular' },
-                { label: 'Now Playing', value: 'now_playing' },
+                { label: 'Now Playing', value: 'now_playing' }
             ]}
           />
         </View>
       <View style={styles.body}>
-        <Article />
+      <FlatList
+        data={movies}
+        renderItem={({ item }) => (
+          <Article image={item.backdrop_path} 
+            title={item.original_title} 
+            popularity={item.popularity} 
+            releaseDate={item.release_date} />
+        )}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+      />
       </View>
     </SafeAreaView>
   );

@@ -1,17 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,Image,  TouchableOpacity} from 'react-native';
 
 
-const Article = ()=>{
+const Article = (props)=>{
+    // const example = `https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg`;
+    // const base_url_img= 'https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg';
+    // const img_size = `w500`;
+    // const backdrop_path= props.image;
+    const imageUri = `https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg`;
+
    return(
         <TouchableOpacity style={styles.articleContainer}>
             <View style={styles.imageContainer}>
-                <Text>IMG</Text>
+     <Image
+        style={styles.articleContainer}
+        source={{uri: imageUri}}
+      />
             </View>
             <View style={styles.articleInfoContainer}>
-                <Text>Title</Text>
-                <Text>Popularity</Text>
-                <Text>Release Date</Text>
+                <Text>{props.title}</Text>
+                <Text>{props.popularity}</Text>
+                <Text>{props.releaseDate}</Text>
                 <TouchableOpacity>
                     <Text> More Details</Text>
                 </TouchableOpacity>

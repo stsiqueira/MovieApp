@@ -1,10 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import SearchArea from '../subcomponents/SearchArea';
 
 export default function Search() {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Search Screen</Text>
+      <SearchArea />
+      <View style={styles.body}>
+
+      </View>
     </View>
   );
 }
@@ -21,5 +25,11 @@ header:{
   fontSize:20,
   textAlign: 'center',
   paddingBottom:10
-}
+},
+body:{
+  flex:1,
+  width:'100%',
+  paddingHorizontal:10,
+  paddingVertical:15,
+},
 });
