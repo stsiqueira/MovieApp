@@ -7,11 +7,12 @@ import Movie from './src/components/layout/Movie'
 import Search from './src/components/layout/Search'
 import TV from './src/components/layout/TvShow'
 import Header from './src/components/layout/Header';
-
+import { NativeBaseProvider } from 'native-base'
 
 const Tab = createMaterialTopTabNavigator();
 export default function App() {
   return (
+    <NativeBaseProvider>
       <NavigationContainer>
         <StatusBar style="light"/>
         <Header/>
@@ -21,6 +22,7 @@ export default function App() {
             <Tab.Screen name="TV Shows" component={TV} />
         </Tab.Navigator>
       </NavigationContainer>
+    </NativeBaseProvider>
 
   );
 }
