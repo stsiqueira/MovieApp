@@ -1,8 +1,6 @@
-import React, { useState }from 'react';
-import { StyleSheet, Text, SafeAreaView, View, FlatList} from 'react-native';
+import React from 'react';
+import { StyleSheet, View} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
-
 
 
 const SelectInput = (props)=>{
@@ -12,17 +10,8 @@ const SelectInput = (props)=>{
           <RNPickerSelect
             style={customPickerStyles}
             placeholder={{label: 'Choose an option', value: 'top_rated'}}
-            onValueChange={async (value) => {
-              const data = await getData("movie",value);
-              setMovies(data);
-              console.log("movies->", movies)
-            }}
-            items={[
-                { label: 'Top rated', value: 'top_rated' },
-                { label: 'Upcoming', value: 'upcoming' },
-                { label: 'Popular', value: 'popular' },
-                { label: 'Now Playing', value: 'now_playing' }
-            ]}
+            onValueChange={props.onValueChange}
+            items={props.items}
           />
         </View>
     )

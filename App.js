@@ -1,29 +1,26 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text,  FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Movie from './src/components/layout/Movie'
-import Search from './src/components/layout/Search'
-import TV from './src/components/layout/TvShow'
-import Header from './src/components/layout/Header';
-import { NativeBaseProvider } from 'native-base'
 
-const Tab = createMaterialTopTabNavigator();
+import { NativeBaseProvider } from 'native-base'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import ShowPage from './src/components/layout/ShowPage';
+import Section from './src/components/layout/Section';
+
+const Stack = createNativeStackNavigator();
+
+
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
-        <StatusBar style="light"/>
-        <Header/>
-        <Tab.Navigator>
-            <Tab.Screen name="Movie" component={Movie} />
-            <Tab.Screen name="Search Results" component={Search} />
-            <Tab.Screen name="TV Shows" component={TV} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
-
+        <NativeBaseProvider>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen name="Section" component={Section}/>
+              <Stack.Screen name="ShowPage" component={ShowPage}/>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </NativeBaseProvider>
   );
 }
 
@@ -35,3 +32,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+   // <NativeBaseProvider>
+    //   <NavigationContainer>
+  //   <View>
+  //   <Text>TESTE</Text>
+  // </View>
+
+  {/* <StatusBar style="light"/>
+  <Stack.Navigator>
+    <Stack.Screen name="Section" component={Section}/>
+    <Stack.Screen name="ShowPage" component={ShowPage}/>
+  </Stack.Navigator> */}
+
+//   </NavigationContainer>
+// </NativeBaseProvider>

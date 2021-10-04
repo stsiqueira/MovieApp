@@ -1,14 +1,14 @@
-import { Center } from "native-base";
+
 import React from "react";
 import { StyleSheet, Text, View, Image,  TouchableOpacity} from 'react-native';
+import { Button } from 'native-base'
 
 
 const Article = (props)=>{
-    // const example = `https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg`;
-    // const base_url_img= 'https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg';
-    // const img_size = `w500`;
-    // const backdrop_path= props.image;
-    const imageUri = `https://image.tmdb.org/t/p/original/2CAL2433ZeIihfX1Hb2139CX0pW.jpg`;
+
+    const base_url_img= 'https://image.tmdb.org/t/p/original/';
+    const poster_path= props.image;
+    const imageUri = `${base_url_img}${poster_path}`;
 
    return(
         <View style={styles.articleContainer}>
@@ -23,9 +23,15 @@ const Article = (props)=>{
                 <Text>{props.title}</Text>
                 <Text style={styles.articleInfo}>Popularity: {props.popularity}</Text>
                 <Text style={styles.articleInfos}>Release Date: {props.releaseDate}</Text>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={{textAlign:'center'}}> More Details</Text>
-                </TouchableOpacity>
+
+                    <Button
+                        onPress={() =>
+                            props.navigation.navigate('ShowPage', props.id)
+                        }
+                    >
+                        More Details
+                        </Button> 
+
             </View>
         </View>
 
@@ -53,8 +59,7 @@ const styles = StyleSheet.create({
     },
     image:{
         flex:1,
-        resizeMode:'contain',
-    
+        resizeMode:'cover',
     },
     button:{
         borderWidth:2,

@@ -1,40 +1,36 @@
 import React, { useState }from 'react';
-import { StyleSheet, Text, SafeAreaView, View, FlatList} from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
+import { StyleSheet, SafeAreaView, View, FlatList} from 'react-native';
 import Article from '../subcomponents/Article';
 import getData from '../api/services/api';
 import SelectInput from '../subcomponents/SelectInput';
 
-export default function Movie() {
+export default function TvShow(props) {
   const [tvShows, setTvShows] = useState([]);
+  const items=[
+    { label: 'airing today', value: 'airing_today' },
+    { label: 'on the air', value: 'on_the_air' },
+    { label: 'popular', value: 'popular' },
+    { label: 'top_rated', value: 'top_rated' }
+  ]
+  const onValueChange= async (value) => {
+    const data = await getData("tv",value);
+    setTvShows(data);
+  }
   return (
     <SafeAreaView style={styles.container}>
-      {/* <SelectInput /> */}
-        <View style={styles.searchContainer}>
-          <RNPickerSelect
-            style={customPickerStyles}
-            placeholder={{label: 'Choose an option', value: 'top_rated'}}
-            onValueChange={async (value) => {
-              const data = await getData("tv",value);
-              setTvShows(data);
-            }}
-            items={[
-                { label: 'airing today', value: 'airing_today' },
-                { label: 'on the air', value: 'on_the_air' },
-                { label: 'popular', value: 'popular' },
-                { label: 'top_rated', value: 'top_rated' }
-            ]}
-          />
-        </View>
+      <SelectInput 
+        onValueChange={onValueChange}
+        items={items}/>
       <View style={styles.body}>
       <FlatList
         data={tvShows}
         renderItem={({ item }) => (
           <Article 
-            image={item.backdrop_path} 
+            image={item.poster_path} 
             title={item.name} 
             popularity={item.popularity} 
-            releaseDate={item.first_air_date} />
+            releaseDate={item.first_air_date} 
+            navigation={props.navigation}/>
         )}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
@@ -57,41 +53,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom:10
   },
-  searchContainer:{
-    paddingVertical:30,
-    width:'70%'
-  },
-  select:{
-    borderColor:'black',
-    borderWidth:2,
-  },
   body:{
     flex:1,
     width:'100%',
     paddingHorizontal:10,
     paddingVertical:15,
-  },
-});
-const customPickerStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    width:'100%',
-    borderWidth: 1,
-    borderColor: '#222f3e',
-    borderRadius: 8,
-    color: '#222f3e',
-    paddingRight: 30, // to ensure the text is never behind the icon
-  },
-  inputAndroid: {
-    fontSize: 16,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#222f3e',
-    borderRadius: 8,
-    color: '#222f3e',
-    paddingRight: 30, // to ensure the text is never behind the icon
   },
 });
