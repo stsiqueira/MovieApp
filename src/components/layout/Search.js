@@ -9,7 +9,7 @@ export default function Search(props) {
 
   const onSubmit = async (select, text) => {
     const data = await getData("search",select, text,);
-    setSearch(data);
+    setSearch(data.data.results);
   }
   return (
     <View style={styles.container}>
@@ -23,7 +23,9 @@ export default function Search(props) {
               title={item.original_title ? item.original_title : item.original_name} 
               popularity={item.popularity} 
               releaseDate={item.release_date}
-              navigation={props.navigation} />
+              navigation={props.navigation}
+              id={item.id}
+              type={item.original_title ? 'movie' : 'tv'} />
           )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
@@ -40,16 +42,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-header:{
-  color:'#222f3e',
-  fontSize:20,
-  textAlign: 'center',
-  paddingBottom:10
-},
-body:{
-  flex:1,
-  width:'100%',
-  paddingHorizontal:10,
-  paddingVertical:15,
-},
+  body:{
+    flex:1,
+    width:'100%',
+    paddingHorizontal:10,
+    paddingVertical:15,
+  },
 });

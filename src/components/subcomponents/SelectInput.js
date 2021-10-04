@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View, Text} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
+import { Select, VStack } from 'native-base'
 
 const SelectInput = (props)=>{
 

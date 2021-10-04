@@ -14,7 +14,7 @@ export default function TvShow(props) {
   ]
   const onValueChange= async (value) => {
     const data = await getData("tv",value);
-    setTvShows(data);
+    setTvShows(data.data.results);
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +30,9 @@ export default function TvShow(props) {
             title={item.name} 
             popularity={item.popularity} 
             releaseDate={item.first_air_date} 
-            navigation={props.navigation}/>
+            navigation={props.navigation}
+            id={item.id}
+            type='tv'/>
         )}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
@@ -46,12 +48,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  header:{
-    color:'#222f3e',
-    fontSize:20,
-    textAlign: 'center',
-    paddingBottom:10
   },
   body:{
     flex:1,
