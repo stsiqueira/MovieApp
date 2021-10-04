@@ -1,48 +1,35 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, SafeAreaView, View, Text,  FlatList } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 
-import { NativeBaseProvider } from 'native-base'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native';
+import { NativeBaseProvider } from 'native-base';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import ShowPage from './src/components/layout/ShowPage';
 import Section from './src/components/layout/Section';
+import { StatusBar } from 'expo-status-bar';
 
 const Stack = createNativeStackNavigator();
 
+const App = () => {
 
-export default function App() {
   return (
         <NativeBaseProvider>
           <NavigationContainer>
+            <StatusBar style="light"/>
             <Stack.Navigator>
-              <Stack.Screen name="Section" component={Section}/>
-              <Stack.Screen name="ShowPage" component={ShowPage}/>
+              <Stack.Screen name="Section" component={Section}
+                options={{
+                    title:"Movies App",
+                    headerStyle: { backgroundColor: '#2c3e50'},
+                    headerTitleStyle:{color: '#fff'}
+                  }}/>
+
+              <Stack.Screen name="ShowPage" component={ShowPage}
+                // options={({route})=>({ headerBackTitle: 'Back to List' })}/>
+                options={({route}) =>({headerBackTitle: 'Back to List', headerTitle:route.params.name})}/>
             </Stack.Navigator>
           </NavigationContainer>
         </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-   // <NativeBaseProvider>
-    //   <NavigationContainer>
-  //   <View>
-  //   <Text>TESTE</Text>
-  // </View>
-
-  {/* <StatusBar style="light"/>
-  <Stack.Navigator>
-    <Stack.Screen name="Section" component={Section}/>
-    <Stack.Screen name="ShowPage" component={ShowPage}/>
-  </Stack.Navigator> */}
-
-//   </NavigationContainer>
-// </NativeBaseProvider>
+export default App;

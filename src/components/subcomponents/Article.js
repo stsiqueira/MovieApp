@@ -1,6 +1,6 @@
 
 import React from "react";
-import { StyleSheet, Text, View, Image,  TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from 'native-base'
 
 
@@ -9,7 +9,7 @@ const Article = (props)=>{
     const base_url_img= 'https://image.tmdb.org/t/p/original/';
     const poster_path= props.image;
     const imageUri = `${base_url_img}${poster_path}`;
-
+    
    return(
         <View style={styles.articleContainer}>
             <View style={styles.imageContainer}>
@@ -17,21 +17,16 @@ const Article = (props)=>{
                     style={styles.image}
                     source={{uri: imageUri}}
                 />
-
             </View>
             <View style={styles.articleInfoContainer}>
                 <Text>{props.title}</Text>
                 <Text style={styles.articleInfo}>Popularity: {props.popularity}</Text>
                 <Text style={styles.articleInfos}>Release Date: {props.releaseDate}</Text>
-
                     <Button
                         onPress={() =>
-                            props.navigation.navigate('ShowPage', props.id)
-                        }
-                    >
-                        More Details
-                        </Button> 
-
+                            props.navigation.navigate('ShowPage', {name:props.title, id:props.id, type:props.type})
+                    }> More Details
+                    </Button> 
             </View>
         </View>
 
@@ -61,14 +56,6 @@ const styles = StyleSheet.create({
         flex:1,
         resizeMode:'cover',
     },
-    button:{
-        borderWidth:2,
-        flex:1,
-        // backgroundColor:'#222f3e',
-        justifyContent:'center',
-        marginTop:5,
-        borderRadius:6,
 
-    },
     
 });

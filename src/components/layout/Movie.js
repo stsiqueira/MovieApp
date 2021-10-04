@@ -17,7 +17,7 @@ export default function Movie(props) {
 ];
   const onValueChange = async (value) => {
     const data = await getData("movie",value);
-    setMovies(data);
+    setMovies(data.data.results);
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -33,7 +33,10 @@ export default function Movie(props) {
               title={item.original_title} 
               popularity={item.popularity} 
               releaseDate={item.release_date}
-              navigation={props.navigation} />
+              navigation={props.navigation} 
+              setShow={props.setShow}
+              id={item.id}
+              type='movie'/>
           )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
@@ -50,12 +53,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  header:{
-    color:'#222f3e',
-    fontSize:20,
-    textAlign: 'center',
-    paddingBottom:10
-  },
   body:{
     flex:1,
     width:'100%',
@@ -63,4 +60,3 @@ const styles = StyleSheet.create({
     paddingVertical:15,
   },
 });
-{/*  */}

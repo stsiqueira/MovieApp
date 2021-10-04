@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons'
 
 const SearchArea = (props)=>{
     const [text, onChangeText] = useState("");
-    const [select, onChangeSelect] = useState("");
+    const [select, onChangeSelect] = useState("multi");
 
     return (
         <View style={styles.searchAreaContainer}>
@@ -21,7 +21,7 @@ const SearchArea = (props)=>{
                 fontSize={14}
                 width='100%'
                 InputLeftElement={
-                  <Icon size={5} ml={2} color='gray.400' as={<Ionicons name='ios-search' />} />
+                  <Icon size={5} ml={2} color='gray.900' as={<Ionicons name='ios-search' />} />
                 }
                 onChangeText={value => {
                   onChangeText(value)
