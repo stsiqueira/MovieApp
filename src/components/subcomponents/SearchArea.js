@@ -1,43 +1,51 @@
 import React, { useState }from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
-
-
+import { StyleSheet, Text, View } from 'react-native';
+import { Button, FormControl, HStack, Icon, Input, Select } from 'native-base'
+import { Ionicons } from '@expo/vector-icons'
 
 
 const SearchArea = (props)=>{
-    const [text, onChangeText] = useState("")
+    const [text, onChangeText] = useState("");
+    const [select, onChangeSelect] = useState("");
+
     return (
         <View style={styles.searchAreaContainer}>
-          <View style={styles.childContainer}>
-            <Text>Search Movie/TV Show name</Text>
-            <TextInput 
-              style={styles.input}
-              onChangeText={onChangeText}
-              value={text}
-              placeholder="useless placeholder"/>
-          </View>
-          <View style={styles.childContainer}>
-            <Text>Choose search type</Text>
-            <View style={styles.searchButtonContainer}>
-              <View style={styles.select}>
-                <RNPickerSelect 
-                  style={customPickerStyles}
-                  placeholder={{label: 'Choose an option', value: 'top_rated'}}
-                  onValueChange={async (value) => {
-                    const data = await getData("movie",value);
-                    setMovies(data);
-                  }}
-                  items={[
-                      { label: 'Top rated', value: 'top_rated' },
-                      { label: 'Upcoming', value: 'upcoming' },
-                      { label: 'Popular', value: 'popular' },
-                      { label: 'Now Playing', value: 'now_playing' }
-                  ]}/>
-              </View>
-              <Button title="Search" style={styles.button}/>
-            </View>
-          </View>
+          <FormControl isRequired>
+            <FormControl.Label fontSize='sm'>Search Movie/TV Show name</FormControl.Label>
+            <HStack width='100%' space={2}>
+              <Input
+                placeholder='i.e. James Bond, CSI'
+                variant='filled'
+                bg='gray.100'
+                px={3}
+                fontSize={14}
+                width='100%'
+                InputLeftElement={
+                  <Icon size={5} ml={2} color='gray.400' as={<Ionicons name='ios-search' />} />
+                }
+                onChangeText={value => {
+                  onChangeText(value)
+                }}
+              />
+            </HStack>
+            <FormControl.Label fontSize='sm'>Choose search type</FormControl.Label>
+            <HStack>
+              <Select 
+                flex={1}
+                marginRight={3}
+                fontSize={14}
+                defaultValue='multi'
+                onValueChange={value => onChangeSelect(value) }>
+                    <Select.Item label='Movies' value='movie' />
+                    <Select.Item label='TV Shows' value='tv' />
+                    <Select.Item label='Multi' value='multi' />
+              </Select>
+              <Button onPress={()=> props.onSubmit(select, text) } fontSize={14} startIcon={<Icon as={Ionicons} name='ios-search' size={4} />}>
+                  Search
+              </Button>
+            </HStack>
+            <Text fontSize='sm'>Please select a search type</Text>
+          </FormControl>
         </View>
     )
 }
@@ -47,44 +55,5 @@ const styles = StyleSheet.create({
     searchAreaContainer:{
       paddingVertical:10,
       width:'80%',
-    },
-    childContainer:{
-      paddingVertical:5
-    },
-    input:{
-      marginVertical:5,
-      borderWidth:1
-    },
-    searchButtonContainer:{
-      flexDirection:'row',
-    },
-    select:{
-      flex:1,
-    },
-    button:{
-
-    }
-  });
-const customPickerStyles = StyleSheet.create({
-    inputIOS: {
-      fontSize: 16,
-      paddingVertical: 5,
-      paddingHorizontal: 10,
-      width:'100%',
-      borderWidth: 1,
-      borderColor: '#222f3e',
-      borderRadius: 8,
-      color: '#222f3e',
-      paddingRight: 30, // to ensure the text is never behind the icon
-    },
-    inputAndroid: {
-      fontSize: 16,
-      paddingVertical: 5,
-      paddingHorizontal: 10,
-      borderWidth: 1,
-      borderColor: '#222f3e',
-      borderRadius: 8,
-      color: '#222f3e',
-      paddingRight: 30, // to ensure the text is never behind the icon
     },
   });
