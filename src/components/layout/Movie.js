@@ -5,16 +5,13 @@ import getData from '../api/services/api';
 import SelectInput from '../subcomponents/SelectInput';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { globalStyles } from '../../style/Global';
+import { movieItems } from '../api/services/Const';
+
 const Stack = createNativeStackNavigator()
 
 export default function Movie(props) {
   const [movies, setMovies] = useState([]);
-  const items = [
-    { label: 'Top rated', value: 'top_rated' },
-    { label: 'Upcoming', value: 'upcoming' },
-    { label: 'Popular', value: 'popular' },
-    { label: 'Now Playing', value: 'now_playing' }
-];
+
   const onValueChange = async (value) => {
     const data = await getData("movie",value);
     setMovies(data.data.results);
@@ -23,7 +20,7 @@ export default function Movie(props) {
     <SafeAreaView style={globalStyles.container}>
       <SelectInput 
         onValueChange={onValueChange}
-        items={items}/>
+        items={movieItems}/>
       <View style={globalStyles.body}>
         <FlatList
           data={movies}

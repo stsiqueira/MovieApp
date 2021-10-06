@@ -3,11 +3,11 @@ import React from "react";
 import { Text, View, Image } from 'react-native';
 import { Button } from 'native-base'
 import { globalStyles } from "../../style/Global";
+import { base_url_img } from "../api/services/Const";
 
 
 const Article = (props)=>{
 
-    const base_url_img= 'https://image.tmdb.org/t/p/original/';
     const poster_path= props.image;
     const imageUri = `${base_url_img}${poster_path}`;
     

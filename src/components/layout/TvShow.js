@@ -1,18 +1,14 @@
 import React, { useState }from 'react';
-import { StyleSheet, SafeAreaView, View, FlatList} from 'react-native';
+import { SafeAreaView, View, FlatList} from 'react-native';
 import Article from '../subcomponents/Article';
 import getData from '../api/services/api';
 import SelectInput from '../subcomponents/SelectInput';
 import { globalStyles } from '../../style/Global';
+import { tvItems } from '../api/services/Const';
 
 export default function TvShow(props) {
   const [tvShows, setTvShows] = useState([]);
-  const items=[
-    { label: 'airing today', value: 'airing_today' },
-    { label: 'on the air', value: 'on_the_air' },
-    { label: 'popular', value: 'popular' },
-    { label: 'top_rated', value: 'top_rated' }
-  ]
+
   const onValueChange= async (value) => {
     const data = await getData("tv",value);
     setTvShows(data.data.results);
@@ -21,7 +17,7 @@ export default function TvShow(props) {
     <SafeAreaView style={globalStyles.container}>
       <SelectInput 
         onValueChange={onValueChange}
-        items={items}/>
+        items={tvItems}/>
       <View style={globalStyles.body}>
       <FlatList
         data={tvShows}
