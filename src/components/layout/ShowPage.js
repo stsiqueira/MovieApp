@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Text, View, Image } from 'react-native';
 import getData from '../api/services/api';
 import { globalStyles } from '../../style/Global';
+import { base_url_img } from "../api/services/Const";
 
 const ShowPage = (props)=>{
-    const base_url_img= 'https://image.tmdb.org/t/p/original';
     const [show, setShow] = useState();
 
     useEffect(() => {
