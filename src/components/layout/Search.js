@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import SearchArea from '../subcomponents/SearchArea';
 import Article from '../subcomponents/Article';
 import getData from '../api/services/api';
+import { globalStyles } from '../../style/Global';
 export default function Search(props) {
 
   const [search, setSearch] = useState();
@@ -12,9 +13,9 @@ export default function Search(props) {
     setSearch(data.data.results);
   }
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <SearchArea onSubmit={onSubmit}/>
-      <View style={styles.body}>
+      <View style={globalStyles.body}>
       <FlatList
           data={search}
           renderItem={({ item }) => (
@@ -34,18 +35,3 @@ export default function Search(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  body:{
-    flex:1,
-    width:'100%',
-    paddingHorizontal:10,
-    paddingVertical:15,
-  },
-});

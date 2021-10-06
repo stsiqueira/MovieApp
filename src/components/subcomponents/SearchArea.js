@@ -1,7 +1,8 @@
 import React, { useState }from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button, FormControl, HStack, Icon, Input, Select } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
+import { globalStyles } from '../../style/Global';
 
 
 const SearchArea = (props)=>{
@@ -9,7 +10,7 @@ const SearchArea = (props)=>{
     const [select, onChangeSelect] = useState("multi");
 
     return (
-        <View style={styles.searchAreaContainer}>
+        <View style={globalStyles.searchAreaContainer}>
           <FormControl isRequired>
             <FormControl.Label fontSize='sm'>Search Movie/TV Show name</FormControl.Label>
             <HStack width='100%' space={2}>
@@ -51,9 +52,3 @@ const SearchArea = (props)=>{
 }
 export default SearchArea;
 
-const styles = StyleSheet.create({
-    searchAreaContainer:{
-      paddingVertical:10,
-      width:'80%',
-    },
-  });
