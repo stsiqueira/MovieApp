@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, View, FlatList} from 'react-native';
 import Article from '../subcomponents/Article';
 import getData from '../api/services/api';
 import SelectInput from '../subcomponents/SelectInput';
+import { globalStyles } from '../../style/Global';
 
 export default function TvShow(props) {
   const [tvShows, setTvShows] = useState([]);
@@ -17,11 +18,11 @@ export default function TvShow(props) {
     setTvShows(data.data.results);
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={globalStyles.container}>
       <SelectInput 
         onValueChange={onValueChange}
         items={items}/>
-      <View style={styles.body}>
+      <View style={globalStyles.body}>
       <FlatList
         data={tvShows}
         renderItem={({ item }) => (
@@ -42,17 +43,3 @@ export default function TvShow(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  body:{
-    flex:1,
-    width:'100%',
-    paddingHorizontal:10,
-    paddingVertical:15,
-  },
-});

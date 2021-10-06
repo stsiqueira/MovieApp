@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Movie from './Movie'
 import Search from './Search'
@@ -24,6 +23,3 @@ const Section = (props)=>{
    ) 
 }
 export default Section;
-const styles = StyleSheet.create({
-
-});

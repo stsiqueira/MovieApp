@@ -1,7 +1,8 @@
 
 import React from "react";
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { Button } from 'native-base'
+import { globalStyles } from "../../style/Global";
 
 
 const Article = (props)=>{
@@ -11,17 +12,17 @@ const Article = (props)=>{
     const imageUri = `${base_url_img}${poster_path}`;
     
    return(
-        <View style={styles.articleContainer}>
-            <View style={styles.imageContainer}>
+        <View style={globalStyles.articleContainer}>
+            <View style={globalStyles.imageContainer}>
                 <Image
-                    style={styles.image}
+                    style={globalStyles.image}
                     source={{uri: imageUri}}
                 />
             </View>
-            <View style={styles.articleInfoContainer}>
+            <View style={globalStyles.articleInfoContainer}>
                 <Text>{props.title}</Text>
-                <Text style={styles.articleInfo}>Popularity: {props.popularity}</Text>
-                <Text style={styles.articleInfos}>Release Date: {props.releaseDate}</Text>
+                <Text style={globalStyles.articleInfo}>Popularity: {props.popularity}</Text>
+                <Text style={globalStyles.articleInfos}>Release Date: {props.releaseDate}</Text>
                     <Button
                         onPress={() =>
                             props.navigation.navigate('ShowPage', {name:props.title, id:props.id, type:props.type})
@@ -33,29 +34,3 @@ const Article = (props)=>{
    ) 
 }
 export default Article;
-const styles = StyleSheet.create({
-    articleContainer: {
-        width:'90%',
-        flexDirection:'row',
-        paddingVertical:5,
-        marginBottom:5,
-    },
-    imageContainer: {
-        flexBasis:90,
-        height:100,
-    },
-    articleInfoContainer:{
-        paddingHorizontal:10,
-        flex:1
-
-    },
-    articleInfo:{
-        paddingVertical:2
-    },
-    image:{
-        flex:1,
-        resizeMode:'cover',
-    },
-
-    
-});
